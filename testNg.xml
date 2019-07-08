@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="ApiTestSuite" >
+    <listeners>
+        <listener class-name="com.mytaxi.utility.ExtReports" />
+    </listeners>
+
+    <test name="APISmokeTest">
+
+        <classes>
+            <class name="com.mytaxi.tests.UserTests"/>
+            <class name="com.mytaxi.tests.PostTest"/>
+            <class name="com.mytaxi.tests.CommentTest"/>
+        </classes>
+    </test>
+</suite>
