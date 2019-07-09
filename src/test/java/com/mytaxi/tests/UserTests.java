@@ -13,17 +13,14 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-//@Listeners(com.mytaxi.utility.ExtReports.class)
 @Test(groups = "User")
 public class UserTests extends GenericTest {
-    public int userId;
-    public String userName;
-    public List<Users> usersList;
+    private String userName;
+    private List<Users> usersList;
 
-    Logger logger = Logger.getLogger(UserTests.class);
+    private Logger logger = Logger.getLogger(UserTests.class);
 
     public UserTests(){
         this.basePath = "/users";
@@ -35,20 +32,16 @@ public class UserTests extends GenericTest {
         usersList = new ArrayList<>();
     }
 
-/**TODO : Negatvie test case for 400,500, and user list null*/
-    //@BeforeClass(dependsOnGroups = {"parenttests"},groups = "childtests")
     @Test
     void getUserList(){
         logger.info("============ Starting the User Tests ============");
         logger.info("============ Fetching the UsersList from Users Json Response ============ \n");
         usersList = RestUtils.getUserListFromJsonPath(GenericService.getResponseBody(basePath));
-        /* usersList = BaseTest.httpRequest.get("/users").then().extract().body().
-                jsonPath().getList("", Users.class);*/
-        logger.info("==== Total Number of Users : "+usersList.size()+" ====");
+        logger.debug("==== Total Number of Users : "+usersList.size()+" ====");
         Assert.assertFalse(usersList.isEmpty());
     }
 
-    @Test//(priority = 1,groups = {"User"},dependsOnGroups = {"Generic"})
+    @Test
     void checkUserJsonSchema(){
         logger.info("============ Validating the JSON Schema of '/users' ============");
         GenericService.checkJsonSchema(basePath).
@@ -59,9 +52,8 @@ public class UserTests extends GenericTest {
     @Test(dependsOnMethods = "getUserList")
     void getUserIDForUserName(){
         logger.info("============ Fetching the UserID related to specific User: "+userName+" ============");
-        /*Input need to take from external file such as ConfigProperties File*/
-        userId = RestUtils.getUserId(userName,usersList);
-        logger.info("==== Fetched UserID : "+userId+" ====");
+        int userId = RestUtils.getUserId(userName, usersList);
+        logger.debug("==== Fetched UserID : "+ userId +" ====");
         Assert.assertTrue(userId != 0 );
     }
 

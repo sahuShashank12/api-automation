@@ -13,19 +13,11 @@ import java.util.*;
 public class BaseTest {
 
     public static RequestSpecification httpRequest;
-   // public static Response response;
     public static Properties properties;
     public Logger logger;
 
 
-   // public int userId;
-   // public String userName;
-
-
-   // public Map<Integer, List> postCommentMap = new HashMap<>();
-   // public List<Comment> commentList;
-
-    public BaseTest(){
+    public BaseTest() {
         super();
     }
 
@@ -34,11 +26,10 @@ public class BaseTest {
 
         logger = Logger.getLogger("myTaxiApiTestLogs");
         PropertyConfigurator.configure("log4j.properties");
-        logger.setLevel(Level.DEBUG);
+        logger.setLevel(Level.INFO);
         properties = ConfigProperty.loadProperties();
         RestAssured.baseURI = properties.getProperty("api.BaseUri");
         httpRequest = RestAssured.given();
-
 
 
     }

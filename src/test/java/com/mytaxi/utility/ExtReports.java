@@ -11,14 +11,13 @@ import org.testng.TestListenerAdapter;
 
 public class ExtReports extends TestListenerAdapter {
 
-    public ExtentHtmlReporter htmlReporter;
-    public ExtentReports extent;
-    public ExtentTest test;
+    private ExtentReports extent;
+    private ExtentTest test;
 
     @Override
     public void onStart(ITestContext testContext) {
 
-        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") +"/Reports/testReport.html");
+        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/Reports/testReport.html");
         htmlReporter.config().setDocumentTitle("Automation Report");
         htmlReporter.config().setReportName("API Testing Report");
         htmlReporter.config().setTheme(Theme.DARK);

@@ -18,44 +18,45 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 @Test(groups = "Post")
 public class PostTest extends GenericTest {
-    Logger postLogger = Logger.getLogger(PostTest.class);
-   // private GenericService genericRestCall;
+    private Logger postLogger = Logger.getLogger(PostTest.class);
     private int userId;
     private List<Post> postList;
     private String userName;
     private List<Users> usersList;
+
     @BeforeClass
-    public void setupUserClass(){
+    public void setupUserClass() {
         userName = properties.getProperty("user.UserName");
         usersList = new ArrayList<>();
         postList = new ArrayList<>();
     }
-    public PostTest(){
+
+    public PostTest() {
         super();
-//        this.basePath = properties.getProperty("post.BasePath");
         this.basePath = "/posts";
     }
-    @Test//(groups = {"Post"},dependsOnGroups = {"User","Generic"})
-    void getPostListForUserID(){
+
+    @Test
+    void getPostListForUserID() {
         postLogger.info("============ Starting the Posts Tests ============");
-      //  postLogger.info("============ Fetching the list of Posts From Post Response by Specific UserID: "+userId+" ============ \n");
+        postLogger.info("============ Fetching the list of Posts From Post Response by Specific UserID: "+userId+" ============ \n");
         String userBasePath = properties.getProperty("user.BasePath");
         usersList = RestUtils.getUserListFromJsonPath(GenericService.getResponseBody(userBasePath));
-        userId = RestUtils.getUserId(userName,usersList);
-        postList = RestUtils.getPostListFromJsonPath(GenericService.getResponseBodyForQueryParam("userId",userId,basePath));
-        postLogger.info("==== Total Number of Posts : "+postList.size()+" ====");
+        userId = RestUtils.getUserId(userName, usersList);
+        postList = RestUtils.getPostListFromJsonPath(GenericService.getResponseBodyForQueryParam("userId", userId, basePath));
+        postLogger.debug("==== Total Number of Posts : " + postList.size() + " ====");
         Assert.assertFalse(postList.isEmpty());
     }
 
-    @Test//(priority = 1,groups = {"Post"},dependsOnGroups = {"User","Generic"})
-    void checkPostJsonSchema(){
+    @Test
+    void checkPostJsonSchema() {
         postLogger.info("============ Validating the JSON Schema of '/posts' ============");
         GenericService.checkJsonSchema(basePath).
                 body(matchesJsonSchemaInClasspath("JsonSchemas/postSchema.json"));
     }
 
     @AfterClass
-    void postTestTearDown(){
+    void postTestTearDown() {
         postLogger.info("============ Posts Tests Are Completed ============= \n\n");
     }
 }

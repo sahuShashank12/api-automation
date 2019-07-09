@@ -35,6 +35,4 @@ public class GenericService {
                 .assertThat();
         return result;
     }
-
-
 }
