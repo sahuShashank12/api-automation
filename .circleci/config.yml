@@ -51,3 +51,14 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/testng
+
+      - run:
+          name: Save html report
+          command: |
+            mkdir -p ~/test-results/extentReport/
+            find . -type f -regex ".*/Reports/.*html" -exec cp {} ~/test-results/extentReport/ \;
+          when: always
+            - store_test_results:
+                path: ~/test-results
+            - store_artifacts:
+                path: ~/test-results/extentReport
