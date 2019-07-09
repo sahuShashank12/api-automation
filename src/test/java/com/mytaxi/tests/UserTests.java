@@ -10,7 +10,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +52,8 @@ public class UserTests extends GenericTest {
     @Test//(priority = 1,groups = {"User"},dependsOnGroups = {"Generic"})
     void checkUserJsonSchema(){
         logger.info("============ Validating the JSON Schema of '/users' ============");
-        /*GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchemaInClasspath("JsonSchemas/userSchema.json"));*/
-        ClassLoader classLoader = getClass().getClassLoader();
-        InputStream ioStream = classLoader.getResourceAsStream("JsonSchemas/userSchema.json");
         GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchema(ioStream));
+                body(matchesJsonSchemaInClasspath("userSchema.json"));
 
     }
 
