@@ -7,6 +7,13 @@
     <groupId>com.mytaxi.apitest</groupId>
     <artifactId>mytaxi-apitest</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <jre.level>1.8</jre.level>
+        <jdk.level>1.8</jdk.level>
+        <testNGSuiteXml>testNg.xml</testNGSuiteXml>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -55,14 +62,25 @@
         </dependency>
 
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${jdk.level}</source>
+                    <target>${jdk.level}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${testNGSuiteXml}</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
