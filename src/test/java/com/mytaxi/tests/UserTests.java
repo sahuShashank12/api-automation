@@ -10,9 +10,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 //@Listeners(com.mytaxi.utility.ExtReports.class)
@@ -50,8 +53,13 @@ public class UserTests extends GenericTest {
     @Test//(priority = 1,groups = {"User"},dependsOnGroups = {"Generic"})
     void checkUserJsonSchema(){
         logger.info("============ Validating the JSON Schema of '/users' ============");
+        /*GenericService.checkJsonSchema(basePath).
+                body(matchesJsonSchemaInClasspath("JsonSchemas/userSchema.json"));*/
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream ioStream = classLoader.getResourceAsStream("JsonSchemas/userSchema.json");
         GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchemaInClasspath("JsonSchemas/userSchema.json"));
+                body(matchesJsonSchema(ioStream));
+
     }
 
     @Test(dependsOnMethods = "getUserList")
