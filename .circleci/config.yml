@@ -39,3 +39,6 @@ jobs:
 
       # run tests!
       - run: mvn clean test -DsuiteXmlFile=testNg.xml
+
+      - store_test_results:
+          path: Reports

@@ -63,7 +63,7 @@ public class CommentTest extends GenericTest {
     void checkUserJsonSchema(){
         commentLogger.info("============ Validating the JSON Schema of '/comments' ============");
         GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchemaInClasspath("commentSchema.json"));
+                body(matchesJsonSchemaInClasspath("JsonSchemas/commentSchema.json"));
     }
 
 

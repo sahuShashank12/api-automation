@@ -51,7 +51,7 @@ public class PostTest extends GenericTest {
     void checkPostJsonSchema(){
         postLogger.info("============ Validating the JSON Schema of '/posts' ============");
         GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchemaInClasspath("postSchema.json"));
+                body(matchesJsonSchemaInClasspath("JsonSchemas/postSchema.json"));
     }
 
     @AfterClass

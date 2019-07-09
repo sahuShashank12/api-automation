@@ -52,7 +52,7 @@ public class UserTests extends GenericTest {
     void checkUserJsonSchema(){
         logger.info("============ Validating the JSON Schema of '/users' ============");
         GenericService.checkJsonSchema(basePath).
-                body(matchesJsonSchemaInClasspath("userSchema.json"));
+                body(matchesJsonSchemaInClasspath("JsonSchemas/userSchema.json"));
 
     }
 
